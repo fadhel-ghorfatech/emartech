@@ -3,3 +3,9 @@ export const enum InputFieldVariants {
     OUTLINED = "outlined",
     STANDARD = "standard",
 }
+
+export const enum ButtonVariants {
+    TEXT = "text",
+    OUTLINED = "outlined",
+    CONTAINED = "contained",
+}

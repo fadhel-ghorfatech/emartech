@@ -118,7 +118,7 @@ export const baseTheme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-    
+          marginBottom: "10px"
         },
       },
       variants: [
@@ -157,6 +157,7 @@ export const baseTheme = createTheme({
     MuiInputBase: {
       styleOverrides: {
         root: {
+          marginBottom: "15px"
         },
       },
     },

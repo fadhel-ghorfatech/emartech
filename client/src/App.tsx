@@ -17,10 +17,6 @@ export const App = () => {
           </Routes>
         </AuthProvider>
       </ThemeProvider>
-
     </>
   );
 };
-
-
-
