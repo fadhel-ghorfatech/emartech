@@ -1,8 +1,7 @@
 const db = require("../models");
-const config = require("../config/auth.config");
+const passport = require("passport");
 const User = db.user;
 
-const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 exports.signup = (req, res) => {
@@ -21,42 +20,63 @@ exports.signup = (req, res) => {
     });
 };
 
+// Middleware to check if user is authenticated
+exports.isAuthenticated = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    return next(); // User is authenticated, proceed to the next middleware or route handler
+  }
+  // If user is not authenticated, return an error
+  res.status(401).json({ message: "Unauthorized" });
+};
+
 exports.signin = (req, res) => {
-  User.findOne({
-    where: {
-      username: req.body.username,
-    },
-  })
-    .then((user) => {
-      if (!user) {
-        return res.status(404).send({ message: "User Not found." });
+  try {
+    passport.authenticate("local", { session: true }, (err, user) => {
+      if (err) {
+        return res.status(403).send(err);
       }
-
-      let passwordIsValid = bcrypt.compareSync(
-        req.body.password,
-        user.password
-      );
-
-      if (!passwordIsValid) {
-        return res.status(401).send({
-          accessToken: null,
-          message: "Invalid Password!",
-        });
-      }
-
-      const token = jwt.sign({ id: user.id }, config.secret, {
-        expiresIn: 86400, // 24 hours
+      req.logIn(user, (err) => {
+        if (err) return res.error(err);
+        else req.session.save(() => res.send(user));
       });
+    })(req, res);
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+};
 
-      res.status(200).send({
-        id: user.id,
-        username: user.username,
-        email: user.email,
-        role: user.role,
-        accessToken: token,
-      });
-    })
-    .catch((err) => {
-      res.status(500).send({ message: err.message });
+exports.signup = async (req, res) => {
+  const payload = req.body;
+  try {
+    // Hash the password
+    const saltRounds = 10;
+    const salt = await bcrypt.genSalt(saltRounds);
+    const encryptedPassword = await bcrypt.hash(payload.password, salt);
+
+    // Create the user in the database
+    const newUser = await User.create({
+      ...payload,
+      password: encryptedPassword,
+      salt,
+      role: payload.role ?? "USER",
     });
+
+    // Send response with user data
+    res.status(200).send({
+      _id: newUser.id,
+      name: newUser.name,
+      email: newUser.email,
+      role: newUser.role,
+    });
+  } catch (err) {
+    // Handle errors
+    if (
+      err.name === "SequelizeUniqueConstraintError" &&
+      err.errors[0].path === "email"
+    ) {
+      return res.status(500).send({ message: EMAIL_EXISTS });
+    } else {
+      return res.status(500).send(err);
+    }
+  }
 };
