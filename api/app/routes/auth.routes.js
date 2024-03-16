@@ -10,14 +10,15 @@ module.exports = function (app) {
     next();
   });
 
-  app.post(
-    "/api/auth/signup",
-    [
-      verifySignUp.checkDuplicateUsernameOrEmail,
-      verifySignUp.checkRolesExisted,
-    ],
-    controller.signup
-  );
+  app.post("/api/auth/signup", controller.signup);
 
   app.post("/api/auth/signin", controller.signin);
+
+  app.get(
+    "/api/auth/protectedRoute",
+    controller.isAuthenticated,
+    (req, res) => {
+      res.json({ message: "This is a protected route!" });
+    }
+  );
 };
