@@ -1,16 +1,65 @@
-module.exports = (sequelize, Sequelize) => {
+const { DataTypes } = require("sequelize");
+
+module.exports = (sequelize) => {
   const User = sequelize.define("users", {
-    username: {
-      type: Sequelize.STRING,
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false, // Not allowing null values
+      validate: {
+        notEmpty: {
+          msg: "First name cannot be empty", // Custom error message
+        },
+      },
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "Last name cannot be empty",
+        },
+      },
     },
     email: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+      validate: {
+        isEmail: {
+          msg: "Invalid email format",
+        },
+      },
     },
     role: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        isIn: {
+          args: [["CONTRACTOR", "SUPPLIER", "USER"]], // Allowed roles
+          msg: "Invalid role", // Custom error message
+        },
+      },
     },
     password: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    phoneNumber: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    countryCode: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      validate: {
+        isInt: {
+          msg: "Country code must be an integer",
+        },
+      },
+    },
+    country: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
   });
 
