@@ -3,14 +3,14 @@ const passport = require("passport");
 const User = db.user;
 
 const bcrypt = require("bcryptjs");
+const consts = require("../consts");
 
 exports.signup = (req, res) => {
   // Save User to Database
+  console.info("------------req.body-----------", req.body);
   User.create({
-    username: req.body.username,
-    email: req.body.email,
+    ...req.body,
     password: bcrypt.hashSync(req.body.password, 8),
-    role: req.body.role,
   })
     .then((user) => {
       res.send(user);
@@ -23,7 +23,7 @@ exports.signup = (req, res) => {
 // Middleware to check if user is authenticated
 exports.isAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
-    return next(); // User is authenticated, proceed to the next middleware or route handler
+    return next(); // User is authenticated, proceed to next middleware/router
   }
   // If user is not authenticated, return an error
   res.status(401).json({ message: "Unauthorized" });
@@ -74,7 +74,7 @@ exports.signup = async (req, res) => {
       err.name === "SequelizeUniqueConstraintError" &&
       err.errors[0].path === "email"
     ) {
-      return res.status(500).send({ message: EMAIL_EXISTS });
+      return res.status(500).send({ message: consts.EMAIL_EXISTS });
     } else {
       return res.status(500).send(err);
     }

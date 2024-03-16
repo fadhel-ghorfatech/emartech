@@ -8,7 +8,7 @@ const initializePassport = require("./app/config/passport-config");
 
 const app = express();
 
-let corsOptions = {
+const corsOptions = {
   origin: "http://localhost:3000",
 };
 
@@ -26,7 +26,7 @@ app.use(
     secret: "your_secret_key",
     resave: false,
     saveUninitialized: false,
-  })
+  }),
 );
 
 // Passport initialization

@@ -13,7 +13,9 @@ const initialize = (passport) => {
         // Compare passwords using bcrypt
         bcrypt.compare(password, user.password, (err, res) => {
           if (err) return cb(err);
-          if (!res) return cb(new Error(PASSSWORD_ERROR)); // Password incorrect
+          if (!res) {
+            return cb(new Error(PASSSWORD_ERROR)); // Password incorrect
+          }
           return cb(null, user); // Authentication successful
         });
       })
