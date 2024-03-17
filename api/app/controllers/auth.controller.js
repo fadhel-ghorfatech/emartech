@@ -1,6 +1,10 @@
+const crypto = require("crypto");
 const db = require("../models");
+const EmailService = require("../helpers/email");
 const passport = require("passport");
+const { getEncryptedPassword } = require("./common/TenantController");
 const User = db.user;
+const PasswordResetToken = db.resetPasswordToken;
 
 const bcrypt = require("bcryptjs");
 const consts = require("../consts");
@@ -48,15 +52,12 @@ exports.signin = (req, res) => {
 exports.signup = async (req, res) => {
   const payload = req.body;
   try {
-    // Hash the password
-    const saltRounds = 10;
-    const salt = await bcrypt.genSalt(saltRounds);
-    const encryptedPassword = await bcrypt.hash(payload.password, salt);
-
     // Create the user in the database
     const newUser = await User.create({
       ...payload,
-      password: encryptedPassword,
+      password: (
+        await getEncryptedPassword(payload.password)
+      ).encryptedPassword,
       salt,
       role: payload.role ?? "USER",
     });
@@ -78,5 +79,104 @@ exports.signup = async (req, res) => {
     } else {
       return res.status(500).send(err);
     }
+  }
+};
+
+exports.forgotPassword = async (req, res) => {
+  try {
+    const user = await User.findOne({
+      where: { email: req.body.email },
+    });
+    if (user) {
+      const token = crypto.randomBytes(20).toString("hex");
+
+      // Calculate expiry timestamp (e.g., 1 hour from now)
+      const expiresAt = new Date();
+      expiresAt.setHours(expiresAt.getHours() + 1); // Expires in 1 hour
+
+      // Store the token and expiry timestamp in the database
+      await PasswordResetToken.create({
+        email: user.email,
+        token: token,
+        expires_at: expiresAt,
+      });
+
+      const resetLink = `${process.env.API_BASE_URL}/reset-password?token=${token}`;
+
+      // Send the email with the password reset link
+      EmailService.sendForgotPasswordEmail({
+        email: user.email,
+        resetLink,
+      });
+
+      res
+        .status(200)
+        .send({ message: "Password reset email sent successfully" });
+    } else {
+      // Need to handle user not found;
+    }
+  } catch (err) {
+    // Need to handle error
+  }
+};
+
+exports.resetPassword = async (req, res) => {
+  const { token } = req.query;
+  try {
+    // Find the token in the database
+    const resetToken = await PasswordResetToken.findOne({
+      where: {
+        token,
+      },
+    });
+
+    // Check if token is found and not expired
+    if (!resetToken || resetToken.expires_at < new Date()) {
+      return res.status(400).send("Invalid or expired token");
+    }
+
+    // Render a password reset form (you might want to use a template engine like Handlebars or EJS for this)
+    res.redirect(`${process.env.CLIENT_BASE_URL}/resetPassword?token=${token}`);
+  } catch (error) {
+    console.error("Error handling password reset token:", error);
+    res.status(500).send("Error handling password reset token");
+  }
+};
+
+exports.updatePassword = async (req, res) => {
+  // Route to handle password reset form submission
+  const { token, newPassword } = req.body;
+
+  try {
+    // Find the token in the database
+    const resetToken = await PasswordResetToken.findOne({
+      where: {
+        token: token,
+      },
+    });
+
+    // Check if token is found and not expired
+    if (!resetToken || resetToken.expires_at < new Date()) {
+      return res.status(400).send("Invalid or expired token");
+    }
+
+    // Update the user's password with the new password
+    const user = await User.findOne({
+      where: {
+        email: resetToken.email,
+      },
+    });
+
+    const x = await getEncryptedPassword(newPassword);
+    user.password = (await getEncryptedPassword(newPassword)).encryptedPassword;
+    await user.save();
+
+    // Delete the reset token from the database
+    await resetToken.destroy();
+
+    res.status(200).send("Password reset successfully");
+  } catch (error) {
+    console.error("Error resetting password:", error);
+    res.status(500).send("Error resetting password");
   }
 };

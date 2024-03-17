@@ -16,7 +16,7 @@ const sequelize = new Sequelize(
       acquire: config[ENV].pool.acquire,
       idle: config[ENV].pool.idle,
     },
-  },
+  }
 );
 
 const db = {};
@@ -25,6 +25,9 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.user = require("../models/user.model.js")(sequelize);
+db.resetPasswordToken = require("../models/passwordResetToken.model.js")(
+  sequelize
+);
 db.ROLES = ["user", "admin"];
 
 module.exports = db;
