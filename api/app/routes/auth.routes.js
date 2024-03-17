@@ -20,4 +20,8 @@ module.exports = function(app) {
       res.json({ message: "This is a protected route!" });
     },
   );
+
+  app.post("/api/auth/forgotPassword", controller.forgotPassword);
+  app.get("/api/auth/resetPassword", controller.resetPassword);
+  app.post("/api/auth/resetPassword", controller.updatePassword);
 };
