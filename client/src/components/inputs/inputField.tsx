@@ -25,6 +25,7 @@ export interface InputFieldProps {
   type?: HTMLInputTypeAttribute,
   value?: string | number | null,
   variant?: InputFieldVariants,
+  labelClassName?: string,
 }
 
 export interface InputProps {
@@ -50,6 +51,7 @@ export const InputField = forwardRef<HTMLDivElement, InputFieldProps>((props, re
     isRequired = false,
     label,
     placeholder = "",
+    labelClassName,
     ...passthrough
   } = props;
 
@@ -58,6 +60,7 @@ export const InputField = forwardRef<HTMLDivElement, InputFieldProps>((props, re
       <FieldTitle
         isRequired={isRequired}
         label={label}
+        className={labelClassName}
       />
     )
   ), [isRequired, label]);

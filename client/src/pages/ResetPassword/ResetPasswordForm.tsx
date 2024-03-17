@@ -1,16 +1,29 @@
 import {
+  Box,
   Button,
   Container,
   IconButton,
   InputAdornment,
   Typography,
+  styled
 } from "@mui/material";
 import { InputField } from "../../components/inputs";
 import { ButtonVariants } from "../../components/constants";
-import authImage1  from "../../assets/Rectangle 2-2.png";
-import authImage2  from "../../assets/Rectangle 3-2.png";
 import { useState } from "react";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import emarTechLogo  from "../../assets/emartech-logo.png";
+
+const StyledBackgroundBox = styled(Box) ({
+  backgroundImage: "url('../../src/assets/reset-password-1.png')",
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  backgroundRepeat: "no-repeat",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  minHeight: "100vh",
+  height: "100%",
+});
 
 
 export const ResetPasswordForm = () => {
@@ -32,65 +45,64 @@ export const ResetPasswordForm = () => {
   };
 
   return (
-    <form autoComplete="off" noValidate onSubmit={handleSubmit}>
-      <Container style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Container style = {{ maxWidth: 608 }}>
-          <img src={authImage1} alt="Image 1" style={{ width: '100%' }} />
-          <img src={authImage2} alt="Image 2" style={{ width: '100%', marginTop: '-275px' }} />
+    <Container className="max-w-100 space-0 main-container">
+      <form autoComplete="off" noValidate onSubmit={handleSubmit}>
+        <Container className="max-w-100 space-0 d-flex align-stretch justify-center">
+          <Container className="space-0 image-container d-mobile-none">
+            <StyledBackgroundBox className="min-h-100vh image">
+            </StyledBackgroundBox>
+          </Container>
+          <Container className="content-container d-flex justify-center">
+            <Box className="auth-container flex-center">
+              <img className="emar-logo" src={emarTechLogo} alt="EmarTech Logo" />
+              <Typography className="auth-heading">
+                Reset Password
+              </Typography>
+              <InputField
+                label="New Password"
+                type={showPassword ? "text" : "password"}
+                labelClassName="input-label"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={() => setShowPassword((prev) => !prev)}
+                      >
+                        {showPassword ? (
+                          <Icon icon="eva:eye-fill" />
+                        ) : (
+                          <Icon icon="eva:eye-off-fill" />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              <InputField
+                label="Confirm New Password"
+                type={confirmPassword ? "text" : "password"}
+                labelClassName="input-label"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={() => setConfirmPassword((prev) => !prev)}
+                      >
+                        {confirmPassword ? (
+                          <Icon icon="eva:eye-fill" />
+                        ) : (
+                          <Icon icon="eva:eye-off-fill" />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              <Button variant={ButtonVariants.OUTLINED} className="auth-btn input-label">Reset Password</Button>
+            </Box>
+          </Container>
         </Container>
-        <Container style={{ display: 'flex', flexDirection: 'column'}}>
-          <Typography sx={{
-            fontFamily: 'Poppins', 
-            fontSize: '34px',
-            fontWeight: 500, 
-            lineHeight: '51px',
-            letterSpacing: '0em', 
-            textAlign: 'left',
-            alignSelf: 'center'
-          }}>
-            Reset Password
-          </Typography>
-          <InputField
-            label="New Password"
-            type={showPassword ? "text" : "password"}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={() => setShowPassword((prev) => !prev)}
-                  >
-                    {showPassword ? (
-                      <Icon icon="eva:eye-fill" />
-                    ) : (
-                      <Icon icon="eva:eye-off-fill" />
-                    )}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-          <InputField
-            label="Confirm New Password"
-            type={confirmPassword ? "text" : "password"}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={() => setConfirmPassword((prev) => !prev)}
-                  >
-                    {confirmPassword ? (
-                      <Icon icon="eva:eye-fill" />
-                    ) : (
-                      <Icon icon="eva:eye-off-fill" />
-                    )}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-          <Button variant={ButtonVariants.OUTLINED}>Reset Password</Button>
-        </Container>
-      </Container>
-    </form>
+      </form>
+    </Container>
   );
 };

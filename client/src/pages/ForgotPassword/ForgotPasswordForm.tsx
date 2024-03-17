@@ -1,13 +1,25 @@
 import {
+  Box,
   Button,
   Container,
   Typography,
+  styled
 } from "@mui/material";
 import { InputField } from "../../components/inputs";
 import { ButtonVariants } from "../../components/constants";
-import authImage1  from "../../assets/Rectangle 2-1.png";
-import authImage2  from "../../assets/Rectangle 3-1.png";
+import emarTechLogo  from "../../assets/emartech-logo.png";
 
+const StyledBackgroundBox = styled(Box) ({
+  backgroundImage: "url('../../src/assets/forgot-password-1.png')",
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  backgroundRepeat: "no-repeat",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  minHeight: "100vh",
+  height: "100%",
+});
 
 export const ForgotPasswordForm = () => {
   const handleSubmit = async (event: any) => {
@@ -25,33 +37,31 @@ export const ForgotPasswordForm = () => {
   };
 
   return (
-    <form autoComplete="off" noValidate onSubmit={handleSubmit}>
-      <Container style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Container style = {{ maxWidth: 608 }}>
-          <img src={authImage1} alt="Image 1" style={{ width: '100%' }} />
-          <img src={authImage2} alt="Image 2" style={{ width: '100%', marginTop: '-275px' }} />
+    <Container className="max-w-100 space-0 main-container">
+      <form autoComplete="off" noValidate onSubmit={handleSubmit}>
+        <Container className="max-w-100 space-0 d-flex align-stretch justify-center">
+          <Container className="space-0 image-container d-mobile-none">
+            <StyledBackgroundBox className="min-h-100vh image">
+            </StyledBackgroundBox>
+          </Container>
+          <Container className="content-container d-flex justify-center">
+            <Box className="auth-container flex-center">
+              <img className="emar-logo" src={emarTechLogo} alt="EmarTech Logo" />
+              <Typography className="auth-heading">
+                Forgot your password?
+              </Typography>
+              <Typography className="auth-heading">
+                Enter your email address or phone number and we’ll help you reset your password.
+              </Typography>
+              <InputField
+                label="Email address or phone number"
+                labelClassName="input-label"
+              />
+              <Button variant={ButtonVariants.OUTLINED} className="auth-btn input-label">Reset Password</Button>
+            </Box>
+          </Container>
         </Container>
-        <Container style={{ display: 'flex', flexDirection: 'column'}}>
-          <Typography sx={{
-            fontFamily: 'Poppins', 
-            fontSize: '34px',
-            fontWeight: 500, 
-            lineHeight: '51px',
-            letterSpacing: '0em', 
-            textAlign: 'left',
-            alignSelf: 'center'
-          }}>
-            Forgot your password?
-          </Typography>
-          <Typography >
-            Enter your email address or phone number and we’ll help you reset your password.
-          </Typography>
-          <InputField
-            label="Email address or phone number"
-          />
-          <Button variant={ButtonVariants.OUTLINED}>Reset Password</Button>
-        </Container>
-      </Container>
-    </form>
+      </form>
+    </Container>
   );
 };

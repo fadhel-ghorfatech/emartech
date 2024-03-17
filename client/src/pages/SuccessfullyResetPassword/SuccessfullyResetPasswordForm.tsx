@@ -1,38 +1,49 @@
 import {
+  Box,
   Container,
   Typography,
+  styled
 } from "@mui/material";
 import DoneIcon from '@mui/icons-material/Done';
 import authImage1  from "../../assets/Rectangle 2-4.png";
 import authImage2  from "../../assets/Rectangle 3-4.png";
+import emarTechLogo  from "../../assets/emartech-logo.png";
 
+const StyledBackgroundBox = styled(Box) ({
+  backgroundImage: "url('../../src/assets/success-reset-password-1.png')",
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  backgroundRepeat: "no-repeat",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  minHeight: "100vh",
+  height: "100%",
+});
 
 export const SuccessfullyResetPasswordForm = () => {
   return (
-    <form autoComplete="off">
-      <Container style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Container style = {{ maxWidth: 608 }}>
-          <img src={authImage1} alt="Image 1" style={{ width: '100%' }} />
-          <img src={authImage2} alt="Image 2" style={{ width: '100%', marginTop: '-275px' }} />
+    <Container className="max-w-100 space-0 main-container">
+      <form autoComplete="off">
+        <Container className="max-w-100 space-0 d-flex align-stretch justify-center">
+          <Container className="space-0 image-container d-mobile-none">
+            <StyledBackgroundBox className="min-h-100vh image">
+            </StyledBackgroundBox>
+          </Container>
+          <Container className="content-container d-flex justify-center">
+            <Box className="auth-container flex-center">
+              <img className="emar-logo" src={emarTechLogo} alt="EmarTech Logo" />
+              <DoneIcon/>
+              <Typography className="auth-heading">
+                Congratulations!
+              </Typography>
+              <Typography className="auth-heading">
+                Your Password Is Successfully Reset.
+              </Typography>
+            </Box>
+          </Container>
         </Container>
-        <Container style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-          <DoneIcon/>
-          <Typography sx={{
-            fontFamily: 'Poppins', 
-            fontSize: '34px',
-            fontWeight: 500, 
-            lineHeight: '51px',
-            letterSpacing: '0em', 
-            textAlign: 'left',
-            alignSelf: 'center'
-          }}>
-            Congratulations!
-          </Typography>
-          <Typography >
-            Your Password Is Successfully Reset.
-          </Typography>
-        </Container>
-      </Container>
-    </form>
+      </form>
+    </Container>
   );
 };

@@ -14,8 +14,8 @@ import { baseTheme } from "./theme";
 export const App = () => {
   return (
     <>
-      <CssBaseline />
       <ThemeProvider theme={baseTheme}>
+        <CssBaseline />
         <AuthProvider>
           <Routes>
             <Route path="/login" element={<Login />}/>
