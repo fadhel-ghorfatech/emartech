@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { TextField, Tooltip } from "@mui/material";
 import { HTMLInputTypeAttribute, forwardRef, useMemo } from "react";
 import { FieldTitle } from "./fieldTitle";
 import { InputFieldVariants } from "../constants";
@@ -26,6 +26,9 @@ export interface InputFieldProps {
   value?: string | number | null,
   variant?: InputFieldVariants,
   labelClassName?: string,
+  helperText?: string,
+  onBlur?: any,
+  errorTooltip?: string,
 }
 
 export interface InputProps {
@@ -52,6 +55,7 @@ export const InputField = forwardRef<HTMLDivElement, InputFieldProps>((props, re
     label,
     placeholder = "",
     labelClassName,
+    errorTooltip,
     ...passthrough
   } = props;
 
@@ -63,17 +67,33 @@ export const InputField = forwardRef<HTMLDivElement, InputFieldProps>((props, re
         className={labelClassName}
       />
     )
-  ), [isRequired, label]);
+  ), [isRequired, label, labelClassName]);
 
-  return (
+
+  const content = useMemo(() => (
     <>
       {_fieldTitle}
-      <TextField
-        placeholder={placeholder}
-        ref={ref}
-        required={isRequired}
-        {...passthrough}
-      />
+      { errorTooltip
+        ? (
+          <Tooltip title={errorTooltip} placement="top">
+            <TextField
+              placeholder={placeholder}
+              ref={ref}
+              required={isRequired}
+              {...passthrough}
+            />
+          </Tooltip>
+        ) : (
+          <TextField
+            placeholder={placeholder}
+            ref={ref}
+            required={isRequired}
+            {...passthrough}
+          />
+        )
+      }
     </>
-  );
+  ), [_fieldTitle, errorTooltip, isRequired, passthrough, placeholder, ref])
+
+  return content;
 });

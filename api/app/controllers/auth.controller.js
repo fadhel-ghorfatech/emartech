@@ -6,23 +6,7 @@ const { getEncryptedPassword } = require("./common/TenantController");
 const User = db.user;
 const PasswordResetToken = db.resetPasswordToken;
 
-const bcrypt = require("bcryptjs");
 const consts = require("../consts");
-
-exports.signup = (req, res) => {
-  // Save User to Database
-  console.info("------------req.body-----------", req.body);
-  User.create({
-    ...req.body,
-    password: bcrypt.hashSync(req.body.password, 8),
-  })
-    .then((user) => {
-      res.send(user);
-    })
-    .catch((err) => {
-      res.status(500).send({ message: err.message });
-    });
-};
 
 // Middleware to check if user is authenticated
 exports.isAuthenticated = (req, res, next) => {
@@ -51,13 +35,14 @@ exports.signin = (req, res) => {
 
 exports.signup = async (req, res) => {
   const payload = req.body;
+  const { encryptedPassword, salt } = await getEncryptedPassword(
+    payload.password
+  );
   try {
     // Create the user in the database
     const newUser = await User.create({
       ...payload,
-      password: (
-        await getEncryptedPassword(payload.password)
-      ).encryptedPassword,
+      password: encryptedPassword,
       salt,
       role: payload.role ?? "USER",
     });
@@ -70,7 +55,6 @@ exports.signup = async (req, res) => {
       role: newUser.role,
     });
   } catch (err) {
-    // Handle errors
     if (
       err.name === "SequelizeUniqueConstraintError" &&
       err.errors[0].path === "email"
@@ -101,10 +85,10 @@ exports.forgotPassword = async (req, res) => {
         expires_at: expiresAt,
       });
 
-      const resetLink = `${process.env.API_BASE_URL}/reset-password?token=${token}`;
+      const resetLink = `${process.env.API_BASE_URL}/api/auth/resetPassword?token=${token}`;
 
       // Send the email with the password reset link
-      EmailService.sendForgotPasswordEmail({
+      await EmailService.sendForgotPasswordEmail({
         email: user.email,
         resetLink,
       });
@@ -116,7 +100,7 @@ exports.forgotPassword = async (req, res) => {
       // Need to handle user not found;
     }
   } catch (err) {
-    // Need to handle error
+    return res.status(500).send(err);
   }
 };
 
@@ -135,7 +119,6 @@ exports.resetPassword = async (req, res) => {
       return res.status(400).send("Invalid or expired token");
     }
 
-    // Render a password reset form (you might want to use a template engine like Handlebars or EJS for this)
     res.redirect(`${process.env.CLIENT_BASE_URL}/resetPassword?token=${token}`);
   } catch (error) {
     console.error("Error handling password reset token:", error);
@@ -145,7 +128,7 @@ exports.resetPassword = async (req, res) => {
 
 exports.updatePassword = async (req, res) => {
   // Route to handle password reset form submission
-  const { token, newPassword } = req.body;
+  const { token, password } = req.body;
 
   try {
     // Find the token in the database
@@ -167,8 +150,9 @@ exports.updatePassword = async (req, res) => {
       },
     });
 
-    const x = await getEncryptedPassword(newPassword);
-    user.password = (await getEncryptedPassword(newPassword)).encryptedPassword;
+    const { encryptedPassword, salt } = await getEncryptedPassword(password);
+    user.password = encryptedPassword;
+    user.salt = salt;
     await user.save();
 
     // Delete the reset token from the database

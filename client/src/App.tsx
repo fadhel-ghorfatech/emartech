@@ -24,6 +24,7 @@ export const App = () => {
             <Route path="/emailVerification" element={<EmailVerification />}/>
             <Route path="/resetPassword" element={<ResetPassword />}/>
             <Route path="/successfullyresetPassword" element={<SuccessfullyResetPassword />}/>
+            <Route path="/dashboard" element={<>This will be Dashboard</>}/>
           </Routes>
         </AuthProvider>
       </ThemeProvider>

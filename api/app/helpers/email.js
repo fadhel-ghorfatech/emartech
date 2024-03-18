@@ -2,7 +2,6 @@ const path = require("path");
 const { createTransport } = require("nodemailer");
 const mustacheExpress = require("mustache-express");
 
-const LayoutTemplate = "Layout";
 // This is where to import email templates
 class EmailService {
   constructor() {
@@ -21,7 +20,7 @@ class EmailService {
 
     this.templateEngine = mustacheExpress(
       path.resolve(__dirname, "../emails"),
-      ".html"
+      ".html",
     );
   }
 
@@ -45,7 +44,7 @@ class EmailService {
   async getTemplate(templateName, options) {
     const templatePath = path.resolve(
       __dirname,
-      `../emails/${templateName}.html`
+      `../emails/${templateName}.html`,
     );
     return Promise.resolve().then(() => {
       return new Promise((resolve, reject) => {

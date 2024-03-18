@@ -5,9 +5,7 @@ import {
   Typography,
   styled
 } from "@mui/material";
-import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
-import authImage1  from "../../assets/Rectangle 2-3.png";
-import authImage2  from "../../assets/Rectangle 3-3.png";
+import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
 import emarTechLogo  from "../../assets/emartech-logo.png";
 
 const StyledBackgroundBox = styled(Box) ({

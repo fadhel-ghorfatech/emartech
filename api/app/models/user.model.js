@@ -6,6 +6,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false, // Not allowing null values
       validate: {
+        len: [2, 25],
         notEmpty: {
           msg: "First name cannot be empty", // Custom error message
         },
@@ -15,6 +16,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
+        len: [2, 25],
         notEmpty: {
           msg: "Last name cannot be empty",
         },
@@ -33,6 +35,7 @@ module.exports = (sequelize) => {
     role: {
       type: DataTypes.STRING,
       allowNull: false,
+      defaultValue: "USER",
       validate: {
         isIn: {
           args: [["CONTRACTOR", "SUPPLIER", "USER"]], // Allowed roles
