@@ -5,6 +5,7 @@ const passport = require("passport");
 const { getEncryptedPassword } = require("./common/TenantController");
 const User = db.user;
 const PasswordResetToken = db.resetPasswordToken;
+const { getPhoneNumberDetails } = require("../helpers/utils");
 
 const consts = require("../consts");
 
@@ -36,12 +37,15 @@ exports.signin = (req, res) => {
 exports.signup = async (req, res) => {
   const payload = req.body;
   const { encryptedPassword, salt } = await getEncryptedPassword(
-    payload.password
+    payload.password,
   );
+
+
   try {
     // Create the user in the database
     const newUser = await User.create({
       ...payload,
+      ...(payload.phoneNumber && getPhoneNumberDetails(payload.phoneNumber)),
       password: encryptedPassword,
       salt,
       role: payload.role ?? "USER",
