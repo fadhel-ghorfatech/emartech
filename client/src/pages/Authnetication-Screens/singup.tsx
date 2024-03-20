@@ -11,13 +11,12 @@ import {
 import { Icon } from "@iconify/react";
 import { FieldTitle, InputField } from "../../components/inputs";
 import { ButtonVariants } from "../../components/constants";
-import MuiPhoneNumber from "material-ui-phone-number";
+import MuiPhoneNumber from "material-ui-phone-number-2";
 import { signUpSchema } from "../../schemas";
 import { signupService } from "../../services/userServiceCalls";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
 import { AuthenticationWrapper } from "./index";
-
 
 const initialValues = {
   agreementCheckbox: false,
@@ -29,9 +28,11 @@ const initialValues = {
   phoneNumber: "",
 };
 
-type PhoneNumber = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | string ;
+type PhoneNumber =
+  | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  | string;
 
-export const Signup : FC = () => {
+export const Signup: FC = () => {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -65,15 +66,18 @@ export const Signup : FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState(false);
 
-  const onChangePhoneNumber = useCallback((value: PhoneNumber) => {
-    const event = {
-      target: {
-        name: "phoneNumber",
-        value,
-      }
-    };
-    handleChange(event);
-  },[handleChange])
+  const onChangePhoneNumber = useCallback(
+    (value: PhoneNumber) => {
+      const event = {
+        target: {
+          name: "phoneNumber",
+          value,
+        },
+      };
+      handleChange(event);
+    },
+    [handleChange]
+  );
 
   const {
     confirmPasswordError,
@@ -107,7 +111,6 @@ export const Signup : FC = () => {
     ]
   );
 
-
   return (
     <AuthenticationWrapper>
       <form autoComplete="off" onSubmit={handleSubmit}>
@@ -126,7 +129,6 @@ export const Signup : FC = () => {
               value={values.firstName}
             />
             <InputField
-                    
               error={!!paswordError}
               errorTooltip={paswordError as string}
               InputProps={{
@@ -177,7 +179,7 @@ export const Signup : FC = () => {
               onChange={handleChange}
               value={values.lastName}
             />
-            <InputField 
+            <InputField
               error={!!confirmPasswordError}
               errorTooltip={confirmPasswordError as string}
               InputProps={{
@@ -204,7 +206,11 @@ export const Signup : FC = () => {
               type={confirmPassword ? "text" : "password"}
               value={values.confirmPassword}
             />
-            <FieldTitle isRequired={true} label="Phone Number" className="input-label" />
+            <FieldTitle
+              isRequired={true}
+              label="Phone Number"
+              className="input-label"
+            />
             <MuiPhoneNumber
               countryCodeEditable={false}
               defaultCountry={"sa"}
@@ -217,20 +223,16 @@ export const Signup : FC = () => {
           </Box>
         </Box>
         <Box className="flex-center justify-start input-label">
-          <Typography
-            className="input-label"
-            gutterBottom
-            variant="body1"
-          >
+          <Typography className="input-label" gutterBottom variant="body1">
             <Checkbox
               checked={values.agreementCheckbox}
               name="agreementCheckbox"
               onChange={handleChange}
               size="small"
             />
-                  I accept the
+            I accept the
             <Link className="link sign-up">Terms and Conditions</Link>
-                  and
+            and
             <Link className="link sign-up">Privacy Policy.</Link>
           </Typography>
         </Box>
@@ -240,7 +242,7 @@ export const Signup : FC = () => {
           type="submit"
           variant={ButtonVariants.OUTLINED}
         >
-                Signup
+          Signup
         </Button>
       </form>
     </AuthenticationWrapper>
