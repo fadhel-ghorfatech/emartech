@@ -34,8 +34,7 @@ class EmailService {
         subject: "Password Reset",
         html: template,
       };
-      const info = await this.transporter.sendMail(options);
-      console.info("==================info", info);
+      await this.transporter.sendMail(options);
     } catch (e) {
       console.error("========================error", e);
     }
@@ -44,7 +43,7 @@ class EmailService {
   async getTemplate(templateName, options) {
     const templatePath = path.resolve(
       __dirname,
-      `../emails/${templateName}.html`,
+      `../emailTemplates/${templateName}.html`,
     );
     return Promise.resolve().then(() => {
       return new Promise((resolve, reject) => {
