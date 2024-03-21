@@ -49,6 +49,7 @@ module.exports = (sequelize) => {
     },
     phoneNumber: {
       type: DataTypes.STRING,
+      defaultValue: null,
       allowNull: true,
     },
     countryCode: {

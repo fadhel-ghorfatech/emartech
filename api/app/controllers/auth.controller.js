@@ -6,6 +6,7 @@ const { getEncryptedPassword } = require("./common/TenantController");
 const User = db.user;
 const PasswordResetToken = db.resetPasswordToken;
 const { getPhoneNumberDetails } = require("../helpers/utils");
+const { Op } = require("sequelize");
 
 const consts = require("../consts");
 
@@ -73,7 +74,12 @@ exports.signup = async (req, res) => {
 exports.forgotPassword = async (req, res) => {
   try {
     const user = await User.findOne({
-      where: { email: req.body.email },
+      where: {
+        [Op.or]: [
+          { email: req.body.forgetPassword },
+          { phoneNumber: getPhoneNumberDetails(req.body.forgetPassword)?.phoneNumber ?? "" },
+        ],
+      },
     });
     if (user) {
       const token = crypto.randomBytes(20).toString("hex");
@@ -100,9 +106,9 @@ exports.forgotPassword = async (req, res) => {
 
       res
         .status(200)
-        .send({ message: "Password reset email sent successfully" });
+        .send({ message: "Password reset email sent successfully", email: user.email });
     } else {
-      // Need to handle user not found;
+      res.status(403).send({ message: "User not found against this email/phoneNumber" });
     }
   } catch (err) {
     return res.status(500).send(err);

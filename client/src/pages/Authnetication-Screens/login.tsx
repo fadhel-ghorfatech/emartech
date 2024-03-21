@@ -53,9 +53,11 @@ export const Login : FC = () => {
     <AuthenticationWrapper>
       <form autoComplete="off" noValidate onSubmit={handleSubmit}>
         <Typography className="auth-heading">Login</Typography>
-        {loginError ? (
-          <Box sx={{ color: "red" }}>Invalid credentials</Box>
-        ) : null}
+        {
+          loginError && (
+            <Box sx={{ color: "red" }}>Invalid credentials</Box>
+          ) 
+        }
         <Box className="form-container flex-center">
           <InputField
             label="Email address or phone number"

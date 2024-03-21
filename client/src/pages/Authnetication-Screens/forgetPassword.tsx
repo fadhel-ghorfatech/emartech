@@ -1,24 +1,30 @@
-import { Button, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { InputField } from "../../components/inputs";
 import { ButtonVariants } from "../../components/constants";
 import { useForm } from "../../hooks/useForm";
 import { useNavigate } from "react-router-dom";
 import { forgotPasswordService } from "../../services/userServiceCalls";
-import { FC, useCallback } from "react";
-import { forgotPasswordFormSchema } from "../../schemas";
+import { FC, useCallback, useState } from "react";
 import { AuthenticationWrapper } from "./index";
+import { forgotPasswordFormSchema } from "../../schemas";
 
 const initialValues = {
-  email: "",
+  forgetPassword: "",
 };
 
 export const ForgotPassword : FC = () => {
   const navigate = useNavigate();
+  const [apiError, setApiError] = useState(false);
   const handleSubmitAction = useCallback(
     (values: any) => {
-      forgotPasswordService(values, (err: any, response: any) => {
-        if (err) console.log("-------error------------", err);
-        if (response) navigate("/emailVerification");
+      forgotPasswordService(values, (error: any, response: any) => {
+        if (error) {
+          setApiError(true)
+        }
+        if (response) {
+          const { email } = response;
+          navigate(`/emailVerification/${email}`);
+        }
       });
     },
     [navigate]
@@ -43,17 +49,22 @@ export const ForgotPassword : FC = () => {
                 reset your password.
         </Typography>
         <InputField
-          name="email"
-          value={values.email}
           label="Email address or phone number"
           labelClassName="input-label"
+          name="forgetPassword"
           onChange={handleChange}
+          value={values.forgetPassword}
         />
+        {
+          apiError && (
+            <Box sx={{ color: "red" }}>User not exists against provided email/phoneNumber</Box>
+          ) 
+        }
         <Button
-          disabled={!isValid || isSubmitting}
-          variant={ButtonVariants.OUTLINED}
-          type="submit"
           className="auth-btn input-label"
+          disabled={!isValid || isSubmitting}
+          type="submit"
+          variant={ButtonVariants.OUTLINED}
         >
                 Reset Password
         </Button>

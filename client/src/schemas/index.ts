@@ -35,17 +35,5 @@ export const loginFormSchema = Yup.object({
 });
 
 export const forgotPasswordFormSchema = Yup.object({
-  email: Yup.string()
-    .test(
-      "is-phone-or-email",
-      "Please enter a valid email or phone number",
-      (value) => {
-        const phoneNumber = parsePhoneNumberFromString(value as string);
-        return (
-          Yup.string().email().isValidSync(value) ||
-          (phoneNumber && phoneNumber.isValid())
-        );
-      }
-    )
-    .required("Please enter a valid email or phone number"),
+  forgetPassword: Yup.string().required("Please enter a valid email or phone number"),
 });

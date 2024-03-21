@@ -18,7 +18,7 @@ export const App = () => {
             <Route path="/login" element={<Login />}/>
             <Route path="/signup" element={<Signup />}/>
             <Route path="/forgotPassword" element={<ForgotPassword />}/>
-            <Route path="/emailVerification" element={<EmailVerification />}/>
+            <Route path="/emailVerification/:email" element={<EmailVerification />}/>
             <Route path="/resetPassword" element={<ResetPassword />}/>
             <Route path="/resetPasswordSuccess" element={<ResetPasswordSuccess />}/>
             <Route path="/dashboard" element={<>This will be Dashboard</>}/>
