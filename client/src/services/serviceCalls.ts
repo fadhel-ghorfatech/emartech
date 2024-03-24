@@ -5,10 +5,8 @@ const BASE_URL = "http://localhost:8084/api"
 
 export class serviceCalls {
   static async post(path: any, data:any, cb: any) {
-    const jwToken = getJWToken();
     const headers = {
       headers: {
-        "x-access-token": `${jwToken}`,
         "Content-Type": "application/json",
       }
     }
@@ -23,10 +21,8 @@ export class serviceCalls {
   }
 
   static postWithFormData(path: any, formData: any, cb:any) {
-    const jwToken = getJWToken();
     const headers = {
       headers: {
-        "x-access-token": jwToken,
         "Content-Type": "multipart/form-data",
       }
     };
@@ -43,10 +39,8 @@ export class serviceCalls {
   }
 
   static async get(path: any, cb:any) {
-    const jwToken = getJWToken();
     const headers = {
       headers: {
-        "x-access-token": `${jwToken}`,
         "Content-Type": "multipart/related",
       }
     }

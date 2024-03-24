@@ -24,6 +24,7 @@ export interface DropdownProps<T extends string> {
   inputProps?: SelectProps,
   isRequired: boolean,
   label?: string,
+  labelClassName?: string,
   name?: string,
   onChange: (e: SelectChangeEvent<T>) => void,
   options: T[] | { value: T, label: string }[],
@@ -43,10 +44,6 @@ export interface SelectProps {
   }
 }
 
-const titleFieldStyle = {
-  fontSize: "0.75rem",
-  marginBottom: "0.5rem",
-};
 
 export function Select<T extends string>(props: DropdownProps<T>) {
   const {
@@ -58,11 +55,11 @@ export function Select<T extends string>(props: DropdownProps<T>) {
     inputProps,
     isRequired,
     label,
+    labelClassName,
     name,
     onChange,
     options,
     placeholder,
-    titleStyle,
     value,
     variant,
   } = props;
@@ -70,12 +67,12 @@ export function Select<T extends string>(props: DropdownProps<T>) {
   const _fieldTitle = useMemo(() => (
     label && (
       <FieldTitle
+        className={labelClassName}
         isRequired={isRequired}
         label={label}
-        sx={titleStyle ?? titleFieldStyle}
       />
     )
-  ), [isRequired, label, titleStyle]);
+  ), [isRequired, label, labelClassName]);
 
   const Options = useMemo(() => (
     options.map((option, index) => {
@@ -126,6 +123,6 @@ const SelectWrapper = styled(Box, {
 })<Pick<DropdownProps<string>, "componentStyles">>(({ componentStyles }) => ({
   ...componentStyles,
   "& .MuiOutlinedInput-root": {
-    borderRadius: "0",
+    height: "56px",
   },
 }));

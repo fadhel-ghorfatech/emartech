@@ -5,24 +5,10 @@ const passport = require("passport");
 const { getEncryptedPassword } = require("./common/TenantController");
 const User = db.user;
 const PasswordResetToken = db.resetPasswordToken;
+const { getPhoneNumberDetails } = require("../helpers/utils");
+const { Op } = require("sequelize");
 
-const bcrypt = require("bcryptjs");
 const consts = require("../consts");
-
-exports.signup = (req, res) => {
-  // Save User to Database
-  console.info("------------req.body-----------", req.body);
-  User.create({
-    ...req.body,
-    password: bcrypt.hashSync(req.body.password, 8),
-  })
-    .then((user) => {
-      res.send(user);
-    })
-    .catch((err) => {
-      res.status(500).send({ message: err.message });
-    });
-};
 
 // Middleware to check if user is authenticated
 exports.isAuthenticated = (req, res, next) => {
@@ -50,16 +36,18 @@ exports.signin = (req, res) => {
 };
 
 exports.signup = async (req, res) => {
-  const payload = req.body;
+  const { phoneNumber, role, password } = req.body;
+  const { encryptedPassword, salt } = await getEncryptedPassword(
+    password,
+  );
   try {
     // Create the user in the database
     const newUser = await User.create({
-      ...payload,
-      password: (
-        await getEncryptedPassword(payload.password)
-      ).encryptedPassword,
+      ...req.body,
+      ...(phoneNumber && getPhoneNumberDetails(phoneNumber)),
+      password: encryptedPassword,
       salt,
-      role: payload.role ?? "USER",
+      role: role ?? "USER",
     });
 
     // Send response with user data
@@ -70,7 +58,6 @@ exports.signup = async (req, res) => {
       role: newUser.role,
     });
   } catch (err) {
-    // Handle errors
     if (
       err.name === "SequelizeUniqueConstraintError" &&
       err.errors[0].path === "email"
@@ -84,9 +71,20 @@ exports.signup = async (req, res) => {
 
 exports.forgotPassword = async (req, res) => {
   try {
+    const { forgetPassword } = req.body;
+    const number = forgetPassword && forgetPassword.includes("+") ?
+      getPhoneNumberDetails(req.body.forgetPassword)?.phoneNumber ?? "" : forgetPassword;
+    const whereClause = {
+      [Op.or]: [
+        { email: forgetPassword },
+        ...(number && [{ phoneNumber: number }]), // Conditionally include phoneNumber if it's a valid phone number
+      ],
+    };
+
     const user = await User.findOne({
-      where: { email: req.body.email },
+      where: whereClause,
     });
+
     if (user) {
       const token = crypto.randomBytes(20).toString("hex");
 
@@ -101,22 +99,23 @@ exports.forgotPassword = async (req, res) => {
         expires_at: expiresAt,
       });
 
-      const resetLink = `${process.env.API_BASE_URL}/reset-password?token=${token}`;
+      const resetLink = `${process.env.API_BASE_URL}/api/auth/resetPassword?token=${token}`;
 
       // Send the email with the password reset link
-      EmailService.sendForgotPasswordEmail({
+      await EmailService.sendForgotPasswordEmail({
         email: user.email,
         resetLink,
+        firstName: user.firstName,
       });
 
       res
         .status(200)
-        .send({ message: "Password reset email sent successfully" });
+        .send({ message: "Password reset email sent successfully", email: user.email });
     } else {
-      // Need to handle user not found;
+      res.status(403).send({ message: "User not found against this email/phoneNumber" });
     }
   } catch (err) {
-    // Need to handle error
+    return res.status(500).send(err);
   }
 };
 
@@ -135,7 +134,6 @@ exports.resetPassword = async (req, res) => {
       return res.status(400).send("Invalid or expired token");
     }
 
-    // Render a password reset form (you might want to use a template engine like Handlebars or EJS for this)
     res.redirect(`${process.env.CLIENT_BASE_URL}/resetPassword?token=${token}`);
   } catch (error) {
     console.error("Error handling password reset token:", error);
@@ -145,7 +143,7 @@ exports.resetPassword = async (req, res) => {
 
 exports.updatePassword = async (req, res) => {
   // Route to handle password reset form submission
-  const { token, newPassword } = req.body;
+  const { token, password } = req.body;
 
   try {
     // Find the token in the database
@@ -167,8 +165,9 @@ exports.updatePassword = async (req, res) => {
       },
     });
 
-    const x = await getEncryptedPassword(newPassword);
-    user.password = (await getEncryptedPassword(newPassword)).encryptedPassword;
+    const { encryptedPassword, salt } = await getEncryptedPassword(password);
+    user.password = encryptedPassword;
+    user.salt = salt;
     await user.save();
 
     // Delete the reset token from the database

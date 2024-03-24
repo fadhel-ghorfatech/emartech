@@ -21,7 +21,7 @@ module.exports = (sequelize) => {
     {
       tableName: "password_reset_tokens", // define your table name
       timestamps: false, // set to false if you don't want timestamps
-    }
+    },
   );
 
   return PasswordResetToken;
