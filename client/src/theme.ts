@@ -39,7 +39,7 @@ const commonCss = {
     minHeight: "100vh",
   },
   "&.max-w-100": {
-    maxWidth: "100%"
+    maxWidth: "100%",
   },
   "&.d-flex": {
     display: "flex",
@@ -54,7 +54,7 @@ const commonCss = {
     justifyContent: "center",
   },
   "&.align-stretch": {
-    alignItems: "stretch"
+    alignItems: "stretch",
   },
   "&.flex-col": {
     flexDirection: "column",
@@ -81,7 +81,7 @@ const commonCss = {
   },
   "&.main-container": {
     "&:after": {
-      content: '""',
+      content: "''",
       width: "100px",
       height: "100px",
       backgroundImage: "url('../../src/assets/emartech-icon.png')",
@@ -95,7 +95,7 @@ const commonCss = {
       opacity: "0.3",
     },
     "&:before": {
-      content: '""',
+      content: "''",
       width: "100px",
       height: "100px",
       backgroundImage: "url('../../src/assets/emartech-icon.png')",
@@ -221,7 +221,7 @@ const commonCss = {
       fontSize: "16px",
     },
   },
-}
+};
 
 export const baseTheme = createTheme({
   palette: {
@@ -237,8 +237,12 @@ export const baseTheme = createTheme({
     MuiCssBaseline: {
       styleOverrides: {
         "&.emar-logo": {
-          maxWidth: '200px',
-          width: '100%',
+          maxWidth: "200px",
+          width: "100%",
+        },
+        "&.g-icon": {
+          height: "40px",
+          width: "40px",
         },
         "&.input-label": {
           width: "100%",
@@ -298,7 +302,6 @@ export const baseTheme = createTheme({
           },
         },
 
-
         "@media(min-width: 480px)": {
           "&.emar-logo": {
             maxWidth: "180px",
@@ -307,20 +310,14 @@ export const baseTheme = createTheme({
             fontSize: "14px",
           },
           ".MuiBox-root": {
-            "&.link-holder": {
-
-            },
-            "&.divider-box": {
-              
-            },
-            "&.sign-up-box": {
-
-            },
+            "&.link-holder": {},
+            "&.divider-box": {},
+            "&.sign-up-box": {},
           },
         },
         "@media(min-width: 768px)": {
           "&.emar-logo": {
-            maxWidth: '150px',
+            maxWidth: "150px",
           },
           "&.input-label": {
             fontSize: "12px",
@@ -333,10 +330,10 @@ export const baseTheme = createTheme({
             },
             "&.form-container": {
               "&.ml-10": {
-                marginLeft: "10px"
+                marginLeft: "10px",
               },
               "&.mr-10": {
-                marginRight: "10px"
+                marginRight: "10px",
               },
             },
             "&.link-holder": {
@@ -352,7 +349,7 @@ export const baseTheme = createTheme({
         },
         "@media(min-width: 900px)": {
           "&.emar-logo": {
-            maxWidth: '160px',
+            maxWidth: "160px",
           },
           "&.input-label": {
             fontSize: "12px",
@@ -371,7 +368,7 @@ export const baseTheme = createTheme({
         },
         "@media(min-width: 1080px)": {
           "&.emar-logo": {
-            maxWidth: '180px',
+            maxWidth: "180px",
           },
           "&.input-label": {
             fontSize: "12px",
@@ -390,7 +387,7 @@ export const baseTheme = createTheme({
         },
         "@media(min-width: 1260px)": {
           "&.emar-logo": {
-            maxWidth: '200px',
+            maxWidth: "200px",
           },
           "&.input-label": {
             fontSize: "12px",
@@ -409,7 +406,7 @@ export const baseTheme = createTheme({
         },
         "@media(min-width: 1800px)": {
           "&.emar-logo": {
-            maxWidth: '300px',
+            maxWidth: "300px",
           },
           "&.input-label": {
             fontSize: "16px",
@@ -445,13 +442,9 @@ export const baseTheme = createTheme({
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          "&.MuiInputBase-input": {
-
-          },
+          "&.MuiInputBase-input": {},
           margin: "15px 0 25px 0",
-          "@media(min-width: 480px)": {
-  
-          },
+          "@media(min-width: 480px)": {},
           "@media(min-width: 768px)": {
             margin: "10px 0 10px 0",
           },
@@ -466,9 +459,7 @@ export const baseTheme = createTheme({
           },
           "@media(min-width: 1800px)": {
             margin: "15px 0 25px 0",
-            "&.MuiInputBase-input": {
-
-            },
+            "&.MuiInputBase-input": {},
           },
         },
       },
@@ -514,71 +505,54 @@ export const baseTheme = createTheme({
     },
     MuiCard: {
       styleOverrides: {
-        root: {
-        },
+        root: {},
       },
     },
     MuiCardHeader: {
       styleOverrides: {
-        root: {
-        },
+        root: {},
       },
     },
     MuiCardContent: {
       styleOverrides: {
-        root: {
-        },
+        root: {},
       },
     },
     MuiChip: {
       styleOverrides: {
-        root: {
-
-        },
+        root: {},
       },
     },
     MuiList: {
       styleOverrides: {
-        root: {
-
-        },
+        root: {},
       },
     },
     MuiListItemButton: {
       styleOverrides: {
-        root: {
-
-        },
+        root: {},
       },
     },
     MuiListItemIcon: {
       styleOverrides: {
         root: {
-          "&:hover": {
-              
-          },
+          "&:hover": {},
         },
       },
     },
     MuiDialogTitle: {
       styleOverrides: {
-        root: {
-            
-        },
+        root: {},
       },
     },
     MuiDialogContent: {
       styleOverrides: {
-        root: {
-
-        },
+        root: {},
       },
     },
     MuiDialogActions: {
       styleOverrides: {
-        root: {
-            
-        },
+        root: {},
       },
     },
     MuiContainer: {
@@ -605,9 +579,13 @@ export const baseTheme = createTheme({
           transition: "none",
           border: "1px solid rgba(0, 0, 0, 0.23)",
           "&.auth-btn": {
-            background: "linear-gradient(90deg, rgba(6,150,88,1) 0%, rgba(6,150,88,1) 35%, rgba(56,198,78,1) 100%)",
+            background:
+              "linear-gradient(90deg, rgba(6,150,88,1) 0%, rgba(6,150,88,1) 35%, rgba(56,198,78,1) 100%)",
             "&.input-label": {
               color: "white",
+            },
+            "&.Mui-disabled": {
+              background: colorPalette.graySeventy,
             },
           },
           ".MuiSvgIcon-root": {
@@ -619,91 +597,69 @@ export const baseTheme = createTheme({
       variants: [
         {
           props: { variant: "contained", color: "primary" },
-          style: {
-          },
+          style: {},
         },
         {
           props: { variant: "outlined", color: "primary" },
-          style: {
-          },
+          style: {},
         },
         {
           props: { variant: "outlined", color: "error" },
-          style: {
-
-          },
+          style: {},
         },
       ],
     },
-    MuiIconButton:
-      {
-        styleOverrides: {
-          root:
-          {
-          },
-        },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {},
       },
+    },
     MuiToolbar: {
       styleOverrides: {
-        root: {
-        },
+        root: {},
       },
     },
     MuiInputBase: {
       styleOverrides: {
         root: {
-          marginBottom: "15px"
+          marginBottom: "15px",
         },
       },
     },
     MuiInputLabel: {
       styleOverrides: {
-        root: {
-
-        },
+        root: {},
       },
     },
     MuiToggleButton: {
       styleOverrides: {
-        root:  {
-        },
+        root: {},
       },
     },
-    MuiSwitch: {
-       
-    },
+    MuiSwitch: {},
     MuiFilledInput: {
       styleOverrides: {
-        root: {
-        },
+        root: {},
       },
     },
     MuiButtonBase: {
       styleOverrides: {
-        root: {
-            
-        },
+        root: {},
       },
     },
     MuiPaper: {
       styleOverrides: {
-        root: {
-
-        },
+        root: {},
       },
     },
     MuiTooltip: {
       styleOverrides: {
-        popper: {
-    
-        },
+        popper: {},
       },
     },
     MuiCheckbox: {
       styleOverrides: {
-        root: {
-
-        },
+        root: {},
       },
     },
   },

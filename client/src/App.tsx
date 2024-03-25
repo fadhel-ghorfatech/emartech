@@ -1,12 +1,9 @@
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./contextProviders/authentication";
-import { Login } from "./pages/Login";
-import { Signup } from "./pages/Signup";
-import { ForgotPassword } from "./pages/ForgotPassword";
-import { EmailVerification } from "./pages/EmailVerification";
-import { ResetPassword } from "./pages/ResetPassword";
-import { SuccessfullyResetPassword } from "./pages/SuccessfullyResetPassword";
+import { 
+  Login , Signup, ForgotPassword, EmailVerification, ResetPassword, ResetPasswordSuccess 
+} from "./pages/Authnetication-Screens/index";
 import { baseTheme } from "./theme";
 
 
@@ -21,9 +18,10 @@ export const App = () => {
             <Route path="/login" element={<Login />}/>
             <Route path="/signup" element={<Signup />}/>
             <Route path="/forgotPassword" element={<ForgotPassword />}/>
-            <Route path="/emailVerification" element={<EmailVerification />}/>
+            <Route path="/emailVerification/:email" element={<EmailVerification />}/>
             <Route path="/resetPassword" element={<ResetPassword />}/>
-            <Route path="/successfullyresetPassword" element={<SuccessfullyResetPassword />}/>
+            <Route path="/resetPasswordSuccess" element={<ResetPasswordSuccess />}/>
+            <Route path="/dashboard" element={<>This will be Dashboard</>}/>
           </Routes>
         </AuthProvider>
       </ThemeProvider>
