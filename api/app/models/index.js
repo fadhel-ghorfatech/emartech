@@ -28,6 +28,9 @@ db.user = require("../models/user.model.js")(sequelize);
 db.resetPasswordToken = require("../models/passwordResetToken.model.js")(
   sequelize,
 );
+db.dailyNewsSubscriberEmail = require("./dailyNewsSubscriberEmail.model.js")(
+  sequelize,
+);
 db.ROLES = ["user", "admin"];
 
 module.exports = db;
