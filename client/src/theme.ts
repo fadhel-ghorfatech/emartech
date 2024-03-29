@@ -66,15 +66,21 @@ const commonCss = {
     color: colorPalette.grey900,
     margin: "25px 0 25px 0",
   },
-  "&.input-label": {
+  "&.para-text": {
+    width: "inherit",
+    margin: "0",
+  },
+  "&.para-text,&.input-label": {
     width: "100%",
     textAlign: "left",
     fontSize: "12px",
     fontWeight: "500",
-    color: colorPalette.grey900,
     "&.text-center": {
       textAlign: "center",
     },
+  },
+  "&.input-label": {
+    color: colorPalette.grey900,
   },
   "&.content-container": {
     padding: "100px 20px",
@@ -124,7 +130,7 @@ const commonCss = {
       margin: "25px 0 25px 0",
       fontSize: "24px",
     },
-    "&.input-label": {
+    "&.para-text,&.input-label": {
       fontSize: "14px",
     },
     "&.main-container": {
@@ -153,7 +159,7 @@ const commonCss = {
       margin: "6px 0 6px 0",
       fontSize: "18px",
     },
-    "&.input-label": {
+    "&.para-text,&.input-label": {
       fontSize: "12px",
     },
     "&.main-container": {
@@ -176,7 +182,7 @@ const commonCss = {
       margin: "6px 0 6px 0",
       fontSize: "18px",
     },
-    "&.input-label": {
+    "&.para-text,&.input-label": {
       fontSize: "12px",
     },
   },
@@ -188,7 +194,7 @@ const commonCss = {
       margin: "12px 0 12px 0",
       fontSize: "20px",
     },
-    "&.input-label": {
+    "&.para-text,&.input-label": {
       fontSize: "12px",
     },
   },
@@ -202,6 +208,9 @@ const commonCss = {
     },
     "&.input-label": {
       fontSize: "12px",
+    },
+    "&.para-text": {
+      fontSize: "14px",
     },
   },
   "@media(min-width: 1800px)": {
@@ -217,7 +226,7 @@ const commonCss = {
       margin: "30px 0 30px 0",
       fontSize: "34px",
     },
-    "&.input-label": {
+    "&.para-text,&.input-label": {
       fontSize: "16px",
     },
   },
@@ -266,11 +275,14 @@ export const baseTheme = createTheme({
           textAlign: "right",
         },
         ".MuiBox-root": {
-          width: "100%",
+          width: "inherit",
           "&.flex-center": {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+          },
+          "&.align-stretch": {
+            alignItems: "stretch",
           },
           "&.justify-between": {
             justifyContent: "space-between",
@@ -287,6 +299,7 @@ export const baseTheme = createTheme({
           "&.auth-container": {
             flexDirection: "column",
             maxWidth: "780px",
+            width: "100%",
           },
           "&.form-container": {
             flexDirection: "column",
@@ -299,6 +312,28 @@ export const baseTheme = createTheme({
           },
           "&.sign-up-box": {
             marginTop: "30px",
+          },
+        },
+        ".para-text": {
+          fontSize: "12px",
+          margin: "0",
+        },
+        ".sub-heading-text": {
+          fontSize: "12px",
+          margin: "0",
+        },
+        ".heading-text": {
+          fontSize: "26px",
+          margin: "10px 0",
+          lineHeight: "1.1",
+        },
+        "&.white-color": {
+          color: colorPalette.white,
+        },
+
+        "@media(max-width: 767px)": {
+          "&.d-mobile-none": {
+            display: "none",
           },
         },
 
@@ -314,6 +349,16 @@ export const baseTheme = createTheme({
             "&.divider-box": {},
             "&.sign-up-box": {},
           },
+          ".para-text": {
+            fontSize: "14px",
+          },
+          ".sub-heading-text": {
+            fontSize: "14px",
+          },
+          ".heading-text": {
+            fontSize: "28px",
+            margin: "10px 0",
+          },
         },
         "@media(min-width: 768px)": {
           "&.emar-logo": {
@@ -321,6 +366,16 @@ export const baseTheme = createTheme({
           },
           "&.input-label": {
             fontSize: "12px",
+          },
+          ".para-text": {
+            fontSize: "12px",
+          },
+          ".sub-heading-text": {
+            fontSize: "14px",
+          },
+          ".heading-text": {
+            fontSize: "40px",
+            margin: "10px 0",
           },
           ".MuiBox-root": {
             "&.flex-center": {
@@ -354,6 +409,16 @@ export const baseTheme = createTheme({
           "&.input-label": {
             fontSize: "12px",
           },
+          ".para-text": {
+            fontSize: "12px",
+          },
+          ".sub-heading-text": {
+            fontSize: "14px",
+          },
+          ".heading-text": {
+            fontSize: "40px",
+            margin: "10px 0",
+          },
           ".MuiBox-root": {
             "&.link-holder": {
               margin: "5px 0 10px 0",
@@ -372,6 +437,16 @@ export const baseTheme = createTheme({
           },
           "&.input-label": {
             fontSize: "12px",
+          },
+          ".para-text": {
+            fontSize: "14px",
+          },
+          ".sub-heading-text": {
+            fontSize: "16px",
+          },
+          ".heading-text": {
+            fontSize: "44px",
+            margin: "10px 0",
           },
           ".MuiBox-root": {
             "&.link-holder": {
@@ -392,6 +467,16 @@ export const baseTheme = createTheme({
           "&.input-label": {
             fontSize: "12px",
           },
+          ".para-text": {
+            fontSize: "16px",
+          },
+          ".sub-heading-text": {
+            fontSize: "18px",
+          },
+          ".heading-text": {
+            fontSize: "62px",
+            margin: "15px 0",
+          },
           ".MuiBox-root": {
             "&.link-holder": {
               margin: "5px 0 15px 0",
@@ -410,6 +495,16 @@ export const baseTheme = createTheme({
           },
           "&.input-label": {
             fontSize: "16px",
+          },
+          ".para-text": {
+            fontSize: "16px",
+          },
+          ".sub-heading-text": {
+            fontSize: "20px",
+          },
+          ".heading-text": {
+            fontSize: "66px",
+            margin: "15px 0",
           },
           ".MuiBox-root": {
             "&.link-holder": {
@@ -442,7 +537,6 @@ export const baseTheme = createTheme({
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          "&.MuiInputBase-input": {},
           margin: "15px 0 25px 0",
           "@media(min-width: 480px)": {},
           "@media(min-width: 768px)": {
@@ -459,7 +553,6 @@ export const baseTheme = createTheme({
           },
           "@media(min-width: 1800px)": {
             margin: "15px 0 25px 0",
-            "&.MuiInputBase-input": {},
           },
         },
       },
@@ -591,6 +684,9 @@ export const baseTheme = createTheme({
           ".MuiSvgIcon-root": {
             marginRight: "10px",
           },
+          "&.white-color": {
+            color: colorPalette.white,
+          },
           ...commonCss,
         },
       },
@@ -623,6 +719,7 @@ export const baseTheme = createTheme({
       styleOverrides: {
         root: {
           marginBottom: "15px",
+          ...commonCss,
         },
       },
     },
