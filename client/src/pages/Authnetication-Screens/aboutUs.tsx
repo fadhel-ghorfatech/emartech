@@ -2,14 +2,14 @@ import { FC } from "react";
 import { Box, styled } from "@mui/material";
 
 const StyledBackgroundBox = styled(Box) ({
-  backgroundImage: "url('../../../src/assets/Rectangle 1363.jpg')",
+  backgroundImage: "url('Rectangle 1363.jpg')",
   backgroundSize: "cover",
   backgroundPosition: "center",
   backgroundRepeat: "no-repeat",
   flex: "1",
   minHeight: "48vh",
   "&.image-box": {
-    backgroundImage: "url('../../../src/assets/Rectangle 1364.jpg')",
+    backgroundImage: "url('Rectangle 1364.jpg')",
   },
   "&.content-box": {
     display: "flex",

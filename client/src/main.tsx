@@ -1,10 +1,10 @@
 import ReactDOM from "react-dom/client"
-import { App } from "./App.tsx"
 import { BrowserRouter } from "react-router-dom";
+import { LandingPage } from "./pages/Authnetication-Screens";
 
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
-    <App />
+    <LandingPage/>
   </BrowserRouter>
 )
