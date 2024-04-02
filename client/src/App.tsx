@@ -2,10 +2,10 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./contextProviders/authentication";
 import { 
-  Login , Signup, ForgotPassword, EmailVerification, ResetPassword, ResetPasswordSuccess, LandingPage
+  Login , Signup, ForgotPassword, EmailVerification, ResetPassword, ResetPasswordSuccess,
 } from "./pages/Authnetication-Screens/index";
 import { baseTheme } from "./theme";
-
+import { LandingPage } from "./pages/landingPage";
 
 
 export const App = () => {

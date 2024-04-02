@@ -52,7 +52,7 @@ export const Login : FC = () => {
   });
 
   return (
-    <AuthenticationWrapper>
+    <AuthenticationWrapper backgroundImageUrl="../../../src/assets/login.png">
       <form autoComplete="off" noValidate onSubmit={handleSubmit}>
         <Typography className="auth-heading">Login</Typography>
         <Box className="form-container flex-center">
