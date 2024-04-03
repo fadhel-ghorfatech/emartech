@@ -1,5 +1,4 @@
 import * as Yup from "yup";
-import { parsePhoneNumberFromString } from "libphonenumber-js";
 
 export const signUpSchema = Yup.object({
   firstName: Yup.string()

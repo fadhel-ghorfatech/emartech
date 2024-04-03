@@ -23,7 +23,7 @@ export const useForm = ({
       validateOnMount: true,
     }),
     // By disabling validation onChange and onBlur formik will validate on submit.
-    onSubmit: async (values, action) => {
+    onSubmit: async (values) => {
       handleSubmitAction(values);
     },
   });
