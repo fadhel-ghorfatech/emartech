@@ -1,7 +1,6 @@
 import { FC } from "react";
-import { Box, Card, CardContent, Grid, Typography, styled } from "@mui/material";
+import { Box, Card, CardContent, Grid, styled } from "@mui/material";
 import { StyledBackgroundBox } from "./aboutUs";
-
 
 const CardHeaderStyle = 
 { 
@@ -10,23 +9,53 @@ const CardHeaderStyle =
   justifyContent:"space-between" 
 }
 
-const StyledBox = styled(Box) ({
-  "&.flex-center": {
+ export const StyledBox = styled(Box) ({
+  margin: "25px 15px 20px",
+  ".flex-center": {
     display: "block",
   },
+  "@media(min-width: 480px)": {
+    margin: "40px 25px 20px",
+  },
   "@media(min-width: 768px)": {
-    "&.flex-center": {
+    margin: "40px 40px 20px",
+    ".flex-center": {
       display: "flex",
-      alignItems: "stretch",
-      margin: "0 40px",
+      alignItems: "center",
+    },
+    ".para-text-holder,.heading-text": {
+      flex: '1',
+    },
+    ".para-text-holder .para-text": {
+      marginLeft: "auto",
+    },
+  },
+  "@media(min-width: 900px)": {
+    ".para-text-holder .para-text": {
+      maxWidth: "390px",
+    },
+  },
+  "@media(min-width: 1080px)": {
+    ".para-text-holder .para-text": {
+      maxWidth: "450px",
+    },
+  },
+  "@media(min-width: 1260px)": {
+    ".para-text-holder .para-text": {
+      maxWidth: "500px",
+    },
+  },
+  "@media(min-width: 1800px)": {
+    ".para-text-holder .para-text": {
+      maxWidth: "650px",
     },
   },
 });
 
 export const OurServices: FC = () => {
   return (
-    <StyledBox className="flex-center">
-      <StyledBackgroundBox className="content-box">
+    <StyledBox>
+      <StyledBackgroundBox className="content-box no-background">
         <h4 className="sub-heading-text">
           <span className="line-span-holder">
             <span className="line-span"/>
@@ -34,118 +63,109 @@ export const OurServices: FC = () => {
           </span>
           OUR SERVICES
         </h4>
-        <Box sx={{ display: "flex" }}>
-          <h1>Build Everything You Needs</h1>
-          <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been 
-            the industry's standard dummy text ever since the 1500s
-          </p>
+        <Box className="flex-center">
+          <Box className="content-holder">
+            <h1 className="heading-text">Build Everything You Needs</h1>
+          </Box>
+          <Box className="para-text-holder">
+            <p className="para-text">
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been 
+              the industry's standard dummy text ever since the 1500s
+            </p>
+          </Box>
         </Box>
-        <Grid container spacing={3}>
-          <Grid item xs={4}>
+        <Grid container spacing={1} style={{ marginTop: "20px" }}>
+          <Grid item xs={6} md={4}>
             <Card>
-              <CardContent style={{ borderBottom: "4px solid green" }}>
+              <CardContent style={{ borderBottom: "5px solid #39C64E", borderRadius: "0", padding: "40px 15px" }}>
                 <Box sx={CardHeaderStyle}>
-                  <Typography variant="h5" component="h2">
-                  Lorem Ipsum001
-                  </Typography>
-                  <img src="../../src/assets/Group 2.svg"/>
+                  <h4 className="sub-heading-text black-color">Lorem<br />Ipsum001</h4>
+                  <img src="../../src/assets/Group 2.svg" style={{ width: "30px" }} />
                 </Box>
-                <Typography color="textSecondary">
+                <p className="para-text" style={{ marginBottom: "0" }}>
                 Lorem Ipsum is simply dummy text of the 
                 printing and typesetting  industry. Lorem
                 Ipsum has been  the industry's
-                </Typography>
+                </p>
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={6} md={4}>
             <Card>
-              <CardContent style={{ borderBottom: "4px solid green" }}>
+              <CardContent style={{ borderBottom: "5px solid #39C64E", borderRadius: "0", padding: "40px 15px" }}>
                 <Box sx={CardHeaderStyle}>
-                  <Typography variant="h5" component="h2">
-                   Lorem Ipsum001
-                  </Typography>
-                  <img src="../../src/assets/Group 2.svg"/>
+                  <h4 className="sub-heading-text black-color">Lorem<br />Ipsum001</h4>
+                  <img src="../../src/assets/Group 2.svg" style={{ width: "30px" }} />
                 </Box>
-                <Typography color="textSecondary">
+                <p className="para-text" style={{ marginBottom: "0" }}>
                 Lorem Ipsum is simply dummy text of the 
                 printing and typesetting  industry. Lorem
                 Ipsum has been  the industry's
-                </Typography>
+                </p>
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={6} md={4}>
             <Card>
-              <CardContent style={{ borderBottom: "4px solid green" }}>
+              <CardContent style={{ borderBottom: "5px solid #39C64E", borderRadius: "0", padding: "40px 15px" }}>
                 <Box sx={CardHeaderStyle}>
-                  <Typography variant="h5" component="h2">
-                   Lorem Ipsum001
-                  </Typography>
-                  <img src="../../src/assets/Group 2.svg"/>
+                  <h4 className="sub-heading-text black-color">Lorem<br />Ipsum001</h4>
+                  <img src="../../src/assets/Group 2.svg" style={{ width: "30px" }} />
                 </Box>
-                <Typography color="textSecondary">
+                <p className="para-text" style={{ marginBottom: "0" }}>
                 Lorem Ipsum is simply dummy text of the 
                 printing and typesetting  industry. Lorem
                 Ipsum has been  the industry's
-                </Typography>
+                </p>
               </CardContent>
             </Card>
           </Grid>
-        </Grid>
-        <Grid container spacing={3}>
-          <Grid item xs={4}>
+          <Grid item xs={6} md={4}>
             <Card>
-              <CardContent style={{ borderBottom: "4px solid green" }}>
+              <CardContent style={{ borderBottom: "5px solid #39C64E", borderRadius: "0", padding: "40px 15px" }}>
                 <Box sx={CardHeaderStyle}>
-                  <Typography variant="h5" component="h2">
-                   Lorem Ipsum001
-                  </Typography>
-                  <img src="../../src/assets/Group 2.svg"/>
+                  <h4 className="sub-heading-text black-color">Lorem<br />Ipsum001</h4>
+                  <img src="../../src/assets/Group 2.svg" style={{ width: "30px" }} />
                 </Box>
-                <Typography color="textSecondary">
+                <p className="para-text" style={{ marginBottom: "0" }}>
                 Lorem Ipsum is simply dummy text of the 
                 printing and typesetting  industry. Lorem
                 Ipsum has been  the industry's
-                </Typography>
+                </p>
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={6} md={4}>
             <Card>
-              <CardContent style={{ borderBottom: "4px solid green" }}>
+              <CardContent style={{ borderBottom: "5px solid #39C64E", borderRadius: "0", padding: "40px 15px" }}>
                 <Box sx={CardHeaderStyle}>
-                  <Typography variant="h5" component="h2">
-                   Lorem Ipsum001
-                  </Typography>
-                  <img src="../../src/assets/Group 2.svg"/>
+                  <h4 className="sub-heading-text black-color">Lorem<br />Ipsum001</h4>
+                  <img src="../../src/assets/Group 2.svg" style={{ width: "30px" }} />
                 </Box>
-                <Typography color="textSecondary">
+                <p className="para-text" style={{ marginBottom: "0" }}>
                 Lorem Ipsum is simply dummy text of the 
                 printing and typesetting  industry. Lorem
                 Ipsum has been  the industry's
-                </Typography>
+                </p>
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={6} md={4}>
             <Card>
-              <CardContent style={{ borderBottom: "4px solid green" }}>
+              <CardContent style={{ borderBottom: "5px solid #39C64E", borderRadius: "0", padding: "40px 15px" }}>
                 <Box sx={CardHeaderStyle}>
-                  <Typography variant="h5" component="h2">
-                   Lorem Ipsum001
-                  </Typography>
-                  <img src="../../src/assets/Group 2.svg"/>
+                  <h4 className="sub-heading-text black-color">Lorem<br />Ipsum001</h4>
+                  <img src="../../src/assets/Group 2.svg" style={{ width: "30px" }} />
                 </Box>
-                <Typography color="textSecondary">
+                <p className="para-text" style={{ marginBottom: "0" }}>
                 Lorem Ipsum is simply dummy text of the 
                 printing and typesetting  industry. Lorem
                 Ipsum has been  the industry's
-                </Typography>
+                </p>
               </CardContent>
             </Card>
           </Grid>
+          
         </Grid>
       </StyledBackgroundBox>
     </StyledBox>

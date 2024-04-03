@@ -18,6 +18,9 @@ export const StyledBackgroundBox = styled(Box)<any>(({ backgroundImageUrl }) => 
       justifyContent: "center",
       padding: "20px",
     },
+    "&.no-background": {
+      minHeight: "auto",
+    },
     ".sub-heading-text": {
       display: "flex",
       alignItems: "center",
@@ -31,8 +34,16 @@ export const StyledBackgroundBox = styled(Box)<any>(({ backgroundImageUrl }) => 
           height: "2px",
           background: "rgba(0, 0, 0, 0.87)",
           margin: "3px 15px 3px 0",
+          "&.white": {
+            background: "#fff",
+          },
         },
       },
+      ".line-span-holder:nth-child(2)": {
+        ".line-span": {
+          margin: "3px 0 3px 15px",
+        }
+      }
     },
     ".para-text": {
       width: "inherit",
@@ -73,6 +84,7 @@ export const StyledBackgroundBox = styled(Box)<any>(({ backgroundImageUrl }) => 
       },
       ".content-holder": {
         maxWidth: "400px",
+        marginRight: "15px",
       },
     },
     "@media(min-width: 900px)": {
@@ -104,6 +116,12 @@ export const StyledBackgroundBox = styled(Box)<any>(({ backgroundImageUrl }) => 
 const StyledBox = styled(Box) ({
   "&.flex-center": {
     display: "block",
+    margin: "0 10px",
+  },
+  "@media(min-width: 480px)": {
+    "&.flex-center": {
+      margin: "0 20px",
+    },
   },
   "@media(min-width: 768px)": {
     "&.flex-center": {
@@ -118,7 +136,7 @@ export const AboutUs: FC = () => {
     <StyledBox className="flex-center">
       <StyledBackgroundBox 
         backgroundImageUrl={"url('../../../src/assets/Rectangle 1363.jpg')"} 
-        backclassName="content-box">
+        className="content-box">
         <Box className="content-holder">
           <h4 className="sub-heading-text">
             <span className="line-span-holder">

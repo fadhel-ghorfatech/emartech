@@ -322,6 +322,9 @@ export const baseTheme = createTheme({
           fontSize: "12px",
           margin: "0",
         },
+        ".black-color": {
+          color: "rgba(0, 0, 0, 0.87) !important",
+        },
         ".heading-text": {
           fontSize: "26px",
           margin: "10px 0",
@@ -671,7 +674,11 @@ export const baseTheme = createTheme({
           padding: "13px 15px",
           transition: "none",
           border: "1px solid rgba(0, 0, 0, 0.23)",
+          "&.radius-0": {
+            borderRadius: "0",
+          },
           "&.auth-btn": {
+            border: "none",
             background:
               "linear-gradient(90deg, rgba(6,150,88,1) 0%, rgba(6,150,88,1) 35%, rgba(56,198,78,1) 100%)",
             "&.input-label": {

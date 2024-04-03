@@ -1,10 +1,29 @@
 import { FC, useState } from "react";
-import { Box, Button, Card, CardContent, Container, Typography } from "@mui/material";
+import { Box, Button, Card, CardContent, Container, Typography, styled } from "@mui/material";
 import { Rating } from "@mui/material";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import { Navigation, Pagination, A11y } from "swiper/modules";
+import { StyledBox } from "./ourServices";
+import { StyledBackgroundBox } from "./aboutUs";
 import "swiper/css";
 import "swiper/css/navigation";
+
+const StyledBackgroundBoxTestimonial = styled(StyledBackgroundBox) ({
+  ".swiper-wrapper": {
+    ".swiper-slide.swiper-slide-active": {
+      ".MuiContainer-root": {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "0",
+        ".MuiPaper-elevation": {
+          maxWidth: "80%",
+        },
+      },
+    },
+  },
+
+});
 
 const SwiperButtonNext: FC<any> = ({ isEnd, isStart }) => {
   const swiper = useSwiper();
@@ -28,12 +47,20 @@ export const Testimonial: FC = () => {
   };
 
   return (
-    <Box  sx={{ backgroundImage: "url('../../src/assets/Rectangle 1378.png')" }}>
-      <Container sx={{ display: "flex", alignItems: "center" }}>
-        <img src="../../src/assets/Rectangle 1361 (1).png"/>
-        <h4>TESTIMONIAL</h4>
-      </Container>
-      <h1> Build Everything You Needs </h1>
+    <StyledBox>
+      <StyledBackgroundBoxTestimonial  sx={{ backgroundImage: "url('../../src/assets/Rectangle 1378.png')" }}>
+      <Box className="content-box" sx={{ padding: "30px" }}>
+      <h4 className="sub-heading-text">
+        <span className="line-span-holder">
+          <span className="line-span"/>
+          <span className="line-span"/>
+        </span>
+        TESTIMONIAL
+      </h4>
+      <Box className="content-holder">
+        <h1 className="heading-text">Build Everything You Needs</h1>
+      </Box>
+
       <Box>
         <Swiper
           modules={[Navigation, Pagination, A11y]}
@@ -41,11 +68,10 @@ export const Testimonial: FC = () => {
           spaceBetween={50}
           onSlideChange={(swiper) => handleSlideChange(swiper)}
         >
-          <SwiperButtonNext isEnd={isEnd} isStart={isStart}/>
           <SwiperSlide  >
             <Box sx={{ display: "flex", justifyContent: "center" }}>
               <Container>
-                <Card sx={{ maxWidth: 345, position: "relative", marginBottom: 2, overflow: "visible" }}>
+                <Card sx={{ marginTop: "30px", maxWidth: 345, position: "relative", marginBottom: 2, overflow: "visible" }}>
                   <img
                     src="../../src/assets/Rectangle 48.jpg"
                     alt="Lorem Ipsum" style={{ position: "absolute", top: -30, right: 20 }}
@@ -68,7 +94,7 @@ export const Testimonial: FC = () => {
                 </Card>
               </Container>
               <Container>
-                <Card sx={{ maxWidth: 345, position: "relative", marginBottom: 2, overflow: "visible" }}>
+                <Card sx={{ marginTop: "30px", maxWidth: 345, position: "relative", marginBottom: 2, overflow: "visible" }}>
                   <img
                     src="../../src/assets/Rectangle 48.jpg"
                     alt="Lorem Ipsum" style={{ position: "absolute", top: -30, right: 20 }}
@@ -145,6 +171,8 @@ export const Testimonial: FC = () => {
 
         </Swiper>
       </Box>
-    </Box>
+      </Box>
+    </StyledBackgroundBoxTestimonial>
+    </StyledBox>
   );
 };
