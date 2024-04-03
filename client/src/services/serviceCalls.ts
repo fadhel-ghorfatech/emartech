@@ -1,5 +1,4 @@
 import axios from "axios"
-import { getJWToken } from "../utils"
 
 const BASE_URL = "http://localhost:8084/api"
 
