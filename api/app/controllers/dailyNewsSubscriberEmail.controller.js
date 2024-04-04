@@ -1,4 +1,5 @@
 const db = require("../models");
+const EmailService = require("../helpers/email");
 
 const DailyNewsSubscriberEmail = db.dailyNewsSubscriberEmail;
 // Assuming this is the model for the daily news subscribers' emails
@@ -33,6 +34,32 @@ exports.addSubscriber = async (req, res) => {
   } catch (error) {
     // Handle errors
     console.error("Error adding subscriber:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+exports.sendMailToNewSubscriber = async () => {
+  try {
+    // Check if the email already exists in the database
+    const nonSubscribedUsers = await DailyNewsSubscriberEmail.findAll({
+      where: {
+        isSubscribed: false,
+      },
+    });
+    if (nonSubscribedUsers.length) {
+      for (const item of nonSubscribedUsers) {
+        await EmailService.sendNewsSubsriberEmail({ email: item.email });
+        await DailyNewsSubscriberEmail.update(
+          { isSubscribed: true },
+          { where: { email: item.email } },
+        );
+      }
+    } else {
+      console.log("--------All the users are subsribed------");
+    }
+  } catch (error) {
+    // Handle errors
+    console.error("Error in sendMailToNewSubscriber ", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 };

@@ -9,6 +9,11 @@ module.exports = (sequelize) => {
         allowNull: false,
         unique: true, // Assuming each email should be unique
       },
+      isSubscribed: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        allowNull: false,
+      },
       subscription_date: {
         type: DataTypes.DATE,
         allowNull: false,
@@ -16,7 +21,7 @@ module.exports = (sequelize) => {
     },
     {
       tableName: "daily_news_subscribers_emails",
-    }
+    },
   );
 
   return DailyNewsSubscriberEmail;

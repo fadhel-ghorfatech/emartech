@@ -40,6 +40,22 @@ class EmailService {
     }
   }
 
+  async sendNewsSubsriberEmail(props) {
+    try {
+      const template = await this.getTemplate("NewsSubscribe", props);
+
+      const options = {
+        from: `${this.fromName} <${this.fromEmail}>`,
+        to: props.email,
+        subject: "Welcome to Emartech",
+        html: template,
+      };
+      await this.transporter.sendMail(options);
+    } catch (e) {
+      console.error("========================error", e);
+    }
+  }
+
   async getTemplate(templateName, options) {
     const templatePath = path.resolve(
       __dirname,

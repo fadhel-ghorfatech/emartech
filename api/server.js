@@ -5,9 +5,9 @@ const cors = require("cors");
 const passport = require("passport");
 const session = require("express-session");
 const initializePassport = require("./app/config/passport-config");
+const schedule = require("./app/backgroundWorkers/newsSubscriber");
 
 const app = express();
-
 const corsOptions = {
   origin: "http://localhost:3000",
 };
@@ -46,6 +46,9 @@ app.get("/", (req, res) => {
 // routes
 require("./app/routes/auth.routes")(app);
 require("./app/routes/dailyNewsSubscriberEmail.routes")(app);
+
+// schedular
+schedule.startScheduler();
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8084;
