@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { Box, styled } from "@mui/material";
 
-export const StyledBackgroundBox = styled(Box)<any>(({ backgroundImageUrl }) => (
-  {
+export const StyledBackgroundBox = styled(Box)<any>(
+  ({ backgroundImageUrl }) => ({
     backgroundImage: backgroundImageUrl ?? "",
     backgroundSize: "cover",
     backgroundPosition: "center",
@@ -10,7 +10,7 @@ export const StyledBackgroundBox = styled(Box)<any>(({ backgroundImageUrl }) => 
     flex: "1",
     minHeight: "48vh",
     "&.image-box": {
-      backgroundImage: "url('../../../src/assets/Rectangle 1364.jpg')",
+      backgroundImage: "url('../../../src/assets/build.jpg')",
     },
     "&.content-box": {
       display: "flex",
@@ -42,8 +42,8 @@ export const StyledBackgroundBox = styled(Box)<any>(({ backgroundImageUrl }) => 
       ".line-span-holder:nth-child(2)": {
         ".line-span": {
           margin: "3px 0 3px 15px",
-        }
-      }
+        },
+      },
     },
     ".para-text": {
       width: "inherit",
@@ -53,7 +53,7 @@ export const StyledBackgroundBox = styled(Box)<any>(({ backgroundImageUrl }) => 
       maxWidth: "370px",
     },
     ".heading-text": {
-      maxWidth: "265px"
+      maxWidth: "265px",
     },
     "@media(min-width: 480px)": {
       minHeight: "75vh",
@@ -61,13 +61,13 @@ export const StyledBackgroundBox = styled(Box)<any>(({ backgroundImageUrl }) => 
         maxWidth: "420px",
       },
       ".heading-text": {
-        maxWidth: "280px"
+        maxWidth: "280px",
       },
     },
     "@media(min-width: 768px)": {
       minHeight: "80vh",
       ".heading-text": {
-        maxWidth: "inherit"
+        maxWidth: "inherit",
       },
       "&.content-box": {
         padding: "10px",
@@ -110,10 +110,10 @@ export const StyledBackgroundBox = styled(Box)<any>(({ backgroundImageUrl }) => 
       },
     },
     "@media(min-width: 1800px)": {},
-  }
-));
+  })
+);
 
-const StyledBox = styled(Box) ({
+const StyledBox = styled(Box)({
   "&.flex-center": {
     display: "block",
     margin: "0 10px",
@@ -134,27 +134,32 @@ const StyledBox = styled(Box) ({
 export const AboutUs: FC = () => {
   return (
     <StyledBox className="flex-center">
-      <StyledBackgroundBox 
-        backgroundImageUrl={"url('../../../src/assets/Rectangle 1363.jpg')"} 
-        className="content-box">
+      <StyledBackgroundBox
+        backgroundImageUrl={"url('../../../src/assets/Rectangle 1363.jpg')"}
+        className="content-box"
+      >
         <Box className="content-holder">
           <h4 className="sub-heading-text">
             <span className="line-span-holder">
-              <span className="line-span"/>
-              <span className="line-span"/>
+              <span className="line-span" />
+              <span className="line-span" />
             </span>
             ABOUT US
           </h4>
           <h1 className="heading-text">Build Everything You Needs</h1>
-          <p className="para-text">Lorem Ipsum is simply dummy text of the printing and typesetting
-  industry. Lorem Ipsum has been  the industry's standard dummy text ever since the 1500s</p>
-          <p className="para-text">Lorem Ipsum is simply dummy text of the printing and typesetting
-  industry. Lorem Ipsum has been  the industry's standard dummy text ever since the 1500s</p>
+          <p className="para-text">
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s
+          </p>
+          <p className="para-text">
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s
+          </p>
         </Box>
       </StyledBackgroundBox>
-      <StyledBackgroundBox className="image-box">
-
-      </StyledBackgroundBox>
+      <StyledBackgroundBox className="image-box"></StyledBackgroundBox>
     </StyledBox>
   );
 };
